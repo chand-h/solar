@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://qdbu3lrkqmjl"]
+
+[ext_resource type="Script" path="res://camcontrol.gd" id="1_mwy4i"]
+[ext_resource type="Shader" path="res://starfield.gdshader" id="2_l8ovc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l6bue"]
+albedo_color = Color(0.788235, 0.490196, 0.388235, 1)
+
+[sub_resource type="Environment" id="Environment_lvn47"]
+background_mode = 1
+ambient_light_source = 1
+
+[sub_resource type="SphereMesh" id="SphereMesh_acerx"]
+flip_faces = true
+radius = 100.0
+height = 100.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3t4kk"]
+render_priority = 0
+shader = ExtResource("2_l8ovc")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
+radius = 100.0
+radial_segments = 32
+rings = 16
+material = SubResource("StandardMaterial3D_l6bue")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 732.519)
+script = ExtResource("1_mwy4i")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.040195, -0.864196, 0.501548, 0.496332, 0.418378, 0.760667, -0.867202, 0.279509, 0.412111, -1279.58, -56.2458, -96.8839)
+light_color = Color(1, 0.960784, 0.94902, 1)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_lvn47")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 718.384)
+visible = false
+mesh = SubResource("SphereMesh_acerx")
+surface_material_override/0 = SubResource("ShaderMaterial_3t4kk")
